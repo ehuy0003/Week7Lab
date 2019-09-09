@@ -1,35 +1,33 @@
-// 1 - get a reference to Mongodb module
+// get a reference to mongoose
 let mongodb = require ('mongodb');
-let morgan = require ('morgan');
+let mongoose = require('mongoose');
 
-// 2 - from ref, get the client
-let mongoDBClient = mongodb.MongoClient;
-let bodyParser=require('body-parser'); //needed as the middleware for the post request
+// from ref, get the client
+let bodyParser=require('body-parser'); // middleware for the post request
 
-// 3 - from the client get the db
+// from the client get the db
 let express = require ('express');
 let app = express();
 
+// referencing to modules
+let Task = require('./models/task')
+
+// body-parser
 app.use(bodyParser.urlencoded({extended:false}));
 
+// finding static documents
 app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/img"));
 app.use(express.static(__dirname + "/css"));
 
-let db = {};
-let col = null;
 let url = "mongodb://localhost:27017";
-mongoDBClient.connect(url, { useNewUrlParser: true }, function (err, client){
 
-    if (err) {
-        console.log('Err  ', err);
-    } else {
-        console.log("Connected successfully to server");
-        db = client.db("w6lab"); //name for db
-        col = db.collection("Tasks"); // Name for the collection(table)
-    }
-
-});
+//mongoose
+mongoose.connect(url,function(er){
+    if(err) 
+        console.log(err)
+    else {console.log('Connected!')}
+}) 
 
 //GET INDEX PAGE
 app.get('/',function(req,res){
