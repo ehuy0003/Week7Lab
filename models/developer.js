@@ -1,7 +1,6 @@
 let mongoose = require('mongoose');
 
 let developerSchema = mongooseSchema({
-    // name: an object has
     name: {
         firstName: {
             type: String,
@@ -9,7 +8,6 @@ let developerSchema = mongooseSchema({
         },
         lastName: String
     },
-    // Level: String and can be either ‘Beginner or Expert’. (required and should be saved in all caps)
     level: {
         type: String,
         required: true,
@@ -23,12 +21,13 @@ let developerSchema = mongooseSchema({
             message: 'Has to be either BEGINNER or EXPER'
         }
     },
-    // Address: Object has
-    // State
-    // Suburb
-    // Street
-    // Unit
-    
+    address: {
+        address: String,
+        state: String,
+        suburb: String,
+        street: String,
+        unit: Number
+    }
 });
 
 let developerModel = mongoose.model('DeveloperCollection',developerSchema);
