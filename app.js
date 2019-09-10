@@ -30,38 +30,68 @@ mongoose.connect(url,function(err){
     else {console.log('Connected!')}
 }) 
 
+//GET INDEX PAGE
+app.get('/',function(req,res){
+    res.render(__dirname + "/views/addtask.html");
+}); 
+
 // GET DEVELOPER PAGE
 app.get('/developer', function(req,res){
     res.render( __dirname + "/views/developer.html")
 });
 
 // POST DEVELOPER PAGE
-app.post('/')
+app.post('/addNewDev', function(req,res){
+    let devDetails = req.body;
+    let developer = new Developer({
+            name: {fname: devDetails.devFirstName ,lname: devDetails.devLastName},
+            level: devDetails.devLevel,
+            address: {
+                state: "" + devDetails.devState,
+                suburb: "" + devDetails.devSuburb,
+                street: "" + devDetails.devStreet,
+                unit: "" + parseInt(devDetails.devUnit)
+            }
+        });
+
+        developer.save(function(err){
+            if (err)
+                console.log(err);
+            else
+                console.log('Dev Saved');
+                res.redirect('/getdevelopers');   
+        })
+})
 
 //GET TASK PAGE
 app.get('/task', function(req, res){
     res.render( __dirname + "/views/addTask.html")
 });
 
-//GET INDEX PAGE
-app.get('/',function(req,res){
-    res.sendFile(__dirname + "/views/addtask.html");
-}); 
-
-//POST INSERT
+//POST INSERT TASK
 app.post('/addnewtask', function(req,res){
     let taskDetails = req.body;
-    let randNum = "" + Math.floor(100000 + Math.random() * 900000);
-    
-    col.insertOne({
-        id: randNum, 
-        name:taskDetails.tname, 
-        assigned:taskDetails.tassign, 
-        due:taskDetails.tdate,  
-        status:taskDetails.tstatus,
-        description:taskDetails.tdesc
-    });
-    res.redirect("/gettasks"); 
+    let task = new Task({
+            name: taskDetails.tName,
+            assign: taskDetails.tDevid,
+            due: taskDetails.tDate,
+            status: taskDetails.tStatus,
+            desc: taskDetails.tDesc
+        });
+
+        task.save(function(err){
+            if (err)
+                console.log(err);
+            else
+                console.log('Task Saved');
+                res.redirect('/');
+                   
+        })
+});
+
+// GET ALL DEVELOPER PAGE
+app.get('/alldev', function(req,res){
+    res.render(__dirname + "/views/allDev.html", {devDB: data})
 });
 
 // GET ALL TASKS PAGE

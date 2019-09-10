@@ -4,17 +4,30 @@
     <link rel = "stylesheet" href = "styles.css">
     <img src = "header.jpg" />
     
-    <h1>Developer</h1> </br>
+    <h1>New Developer</h1> </br>
     <h1>
         <a href="/">Insert New Task</a>
-        <a href="/getTask.html">New Task</a>
         <a href="/insertNewDev.html">Insert Developer</a>
         <a href="/allDev.html">Get All Developer</a>
         <a href="/deletetask">Delete Task</a>
-        <a href="/deletecomplete">Delete All Completed Tasks</a>
+        <a href="/deletecomplete">Delete All Completed</a>
         <a href="/updatetask">UpdateTask</a>
     </h1>
-    <form action="" method="POST">
+    <form action="/addNewDev" method="POST">
+        First Name <input type="text" method="POST" name="devFirstName"/> </br>
+        Last Name <input type="text" method="POST" name="devLastName"/> </br>
+        Level 
+        <select method="POST" name="devLevel">
+            <option value="BEGINNER">Beginner</option>
+            <option value="EXPERT">Expert</option>
+        </select>   
+        </br>
+        State <input type="text" method="POST" name="devState" /> </br>
+        Suburb <input type="text" method="POST" name="devSuburb" /> </br>
+        Street <input type="text" method="POST" name="devStreet" /> </br>
+        Unit <input type="number" method="POST" nam="devUnit"> </br>
+
+        <input type="submit" value="Submit"/>
     </form>
 </body>
 </html>
