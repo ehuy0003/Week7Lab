@@ -29,13 +29,23 @@ mongoose.connect(url,function(err){
     else {console.log('Connected!')}
 }) 
 
+// GET DEVELOPER PAGE
+app.get('/developer', function(req,res){
+    res.render( __dirname + "/views/developer.html")
+});
+
+//GET TASK PAGE
+app.get('/task', function(req, res){
+    res.render( __dirname + "/views/task.html")
+});
+
 //GET INDEX PAGE
 app.get('/',function(req,res){
     res.sendFile(__dirname + "/views/index.html");
 }); 
 
 //POST INSERT
-app.post('/addnewtask', function (req, res) {
+app.post('/addnewtask', function(req,res){
     let taskDetails = req.body;
     let randNum = "" + Math.floor(100000 + Math.random() * 900000);
     
