@@ -20,6 +20,7 @@ app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/img"));
 app.use(express.static(__dirname + "/css"));
 
+
 let url = "mongodb://localhost:27017/week7lab";
 
 //mongoose
@@ -34,14 +35,17 @@ app.get('/developer', function(req,res){
     res.render( __dirname + "/views/developer.html")
 });
 
+// POST DEVELOPER PAGE
+app.post('/')
+
 //GET TASK PAGE
 app.get('/task', function(req, res){
-    res.render( __dirname + "/views/task.html")
+    res.render( __dirname + "/views/addTask.html")
 });
 
 //GET INDEX PAGE
 app.get('/',function(req,res){
-    res.sendFile(__dirname + "/views/index.html");
+    res.sendFile(__dirname + "/views/addtask.html");
 }); 
 
 //POST INSERT
@@ -106,31 +110,6 @@ app.post('/updatetaskdata', function (req, res) {
     col.updateOne(filter, theUpdate);
     res.redirect('/gettasks');// redirect the client to list users page
 });
-
-// GET MANY TASK
-app.get('/insertMany', function(req, res) {
-    res.sendFile(__dirname + '/views/insertMany.html');
-})
-
-// POST MANY TASK
-app.post('/addNewMultiTask', function(req, res){
-    let taskDetails = req.body;
-    let randNum = "" + Math.floor(100000 + Math.random() * 900000);
-    let mdb = {};
-    let count = taskDetails.tCount;
-    console.log(count);
-
-        col.insertMany({
-            id: randNum, 
-            name:taskDetails.tname, 
-            assigned:taskDetails.tassign, 
-            due:taskDetails.tdate,  
-            status:taskDetails.tstatus,
-            description:taskDetails.tdesc
-        });
-
-    res.redirect("/gettasks"); 
-})
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');

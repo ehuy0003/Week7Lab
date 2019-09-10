@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let developerSchema = mongooseSchema({
+let developerSchema = mongoose.Schema({
     name: {
         firstName: {
             type: String,
