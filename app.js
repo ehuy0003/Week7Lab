@@ -1,5 +1,4 @@
 // get a reference to mongoose
-let mongodb = require ('mongodb');
 let mongoose = require('mongoose');
 
 // from ref, get the client
@@ -10,7 +9,8 @@ let express = require ('express');
 let app = express();
 
 // referencing to modules
-let Task = require('./models/task')
+let Task = require('./models/task');
+let Developer = require('./models/developer');
 
 // body-parser
 app.use(bodyParser.urlencoded({extended:false}));
@@ -20,10 +20,10 @@ app.use(express.static(__dirname + "/views"));
 app.use(express.static(__dirname + "/img"));
 app.use(express.static(__dirname + "/css"));
 
-let url = "mongodb://localhost:27017";
+let url = "mongodb://localhost:27017/week7lab";
 
 //mongoose
-mongoose.connect(url,function(er){
+mongoose.connect(url,function(err){
     if(err) 
         console.log(err)
     else {console.log('Connected!')}
